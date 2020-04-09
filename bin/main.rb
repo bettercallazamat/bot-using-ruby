@@ -1,9 +1,9 @@
 # coding: UTF-8
 require "telegram/bot"
 
-TOKEN = '1256706071:AAE_fzzEcpI0Y-GSDmAqO11mleVHxDOApuA'
+token = '1256706071:AAE_fzzEcpI0Y-GSDmAqO11mleVHxDOApuA'
 
-Telegram::Bot::Client.run(TOKEN) do |bot|
+Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
     case message.text
     when '/start'
