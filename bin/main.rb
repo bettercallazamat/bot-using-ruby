@@ -1,3 +1,4 @@
+# coding: UTF-8
 require "telegram/bot"
 
 TOKEN = '1256706071:AAHtbdLD8bbzk61b6gwKBdBDXAygkLErUcw'
