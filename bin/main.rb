@@ -1,28 +1,56 @@
-require 'telegram/bot' 
+# rubocop:disable Layout/LineLength
+# rubocop:disable Metrics/BlockLength
+
+require 'telegram/bot'
+require './lib/githubconnector.rb'
+require './lib/user.rb'
 
 token = '1256706071:AAE_fzzEcpI0Y-GSDmAqO11mleVHxDOApuA'
 
 Telegram::Bot::Client.run(token) do |bot|
-  telegram_acc = ''
   pr_hash = {}
-  bot.listen do |message|
-    case message.text
-    when '/start'
-      bot.api.send_message(
-        chat_id: message.chat.id,
-        text: "Welcome, #{message.from.first_name}. Please authorize bot via OAuth, so I can help you.\n Type /auth and provide me your github account. #{telegram_acc}"
-      )
-    when '/stop'
-      bot.api.send_message(
-        chat_id: message.chat.id,
-        text: "Bye, #{message.from.first_name}"
-      )
-    when /\b(\w*github\w*)\b/
-      telegram_acc = message.text
-      bot.api.send_message(
-        chat_id: message.chat.id,
-        text: "Thanks, your github account is #{telegram_acc}"
-      )
+  github_acc = ''
+  begin
+    bot.listen do |message|
+      case message.text
+      when '/start'
+        bot.api.send_message(
+          chat_id: message.chat.id,
+          text: "Welcome, #{message.from.first_name}. Type /auth and provide me your github account."
+        )
+      when '/stop'
+        bot.api.send_message(
+          chat_id: message.chat.id,
+          text: "Bye, #{message.from.first_name}"
+        )
+      when '/auth'
+        bot.api.send_message(
+          chat_id: message.chat.id,
+          text: "#{message.from.first_name} please provide your username in github"
+        )
+        bot.listen do |username_input|
+          github_acc = username_input
+          bot.api.send_message(
+            chat_id: message.chat.id,
+            text: "Your GitHub acc is set to #{github_acc}"
+          )
+          break
+        end
+      when '/username'
+        bot.api.send_message(
+          chat_id: message.chat.id,
+          text: "Your GitHub acc is set to @#{github_acc}"
+        )
+      when '/update'
+        
+      end
+    end
+  rescue Telegram::Bot::Exceptions::ResponseError => e
+    if e.error_code.to_s == '502'
+      puts 'telegram stuff, nothing to worry!'
     end
   end
 end
+
+# rubocop:enable Layout/LineLength
+# rubocop:enable Metrics/BlockLength
