@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'httparty' 
+require 'httparty'
 
 class GitHubConnector
   include HTTParty
@@ -26,6 +26,6 @@ class GitHubConnector
 end
 
 github = GitHubConnector.new
-p github.repos('bettercallazamat')
-p github.pull_requests('bettercallazamat', 'bot-using-ruby')
-p github.comments_num('bettercallazamat', 'bot-using-ruby', 1)
+# p github.repos('bettercallazamat')
+# p github.pull_requests('bettercallazamat', 'bot-using-ruby')
+# p github.comments_num('bettercallazamat', 'bot-using-ruby', 1)

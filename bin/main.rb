@@ -1,6 +1,7 @@
 # rubocop:disable Layout/LineLength
 # rubocop:disable Metrics/BlockLength
 
+require 'rubygems'
 require 'telegram/bot'
 require './lib/githubconnector.rb'
 require './lib/user.rb'
@@ -42,7 +43,13 @@ Telegram::Bot::Client.run(token) do |bot|
           text: "Your GitHub acc is set to @#{github_acc}"
         )
       when '/update'
-        
+        github = GitHubConnector.new
+        github_repos = github.repos(github_acc)
+        puts github_repos
+        bot.api.send_message(
+          chat_id: message.chat.id,
+          text: 'Updated'
+        )
       end
     end
   rescue Telegram::Bot::Exceptions::ResponseError => e
