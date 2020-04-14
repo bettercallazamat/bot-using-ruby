@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Layout/LineLength
 # rubocop:disable Style/Documentation
 # rubocop:disable Style/GlobalVars
 
@@ -42,6 +41,5 @@ end
 
 $github = GitHubConnector.new
 
-# rubocop:enable Layout/LineLength
 # rubocop:enable Style/Documentation
 # rubocop:enable Style/GlobalVars

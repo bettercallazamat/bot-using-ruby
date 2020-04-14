@@ -24,6 +24,16 @@ Telegram::Bot::Client.run(ENV['TELEGRAM_BOT_TOKEN']) do |bot|
           chat_id: message.chat.id,
           text: "Bye, #{message.from.first_name}"
         )
+      when '/help'
+        bot.api.send_message(
+          chat_id: message.chat.id,
+          text: "start - Starting a bot\n
+                /stop - Stopping a bot\n
+                /auth - Saves your GitHub username\n
+                /username - Give you username that you have provided to bot\n
+                /update - Saves your current state of your repos\n
+                /check - Checks if there are new feedbacks on your repos"
+        )
       when '/auth'
         bot.api.send_message(
           chat_id: message.chat.id,
