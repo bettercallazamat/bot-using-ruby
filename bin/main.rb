@@ -3,14 +3,17 @@
 
 require 'rubygems'
 require 'telegram/bot'
-require './lib/githubconnector.rb'
-require './lib/user.rb'
+require_relative '../lib/githubconnector.rb'
+require_relative '../lib/user.rb'
 
 token = '1256706071:AAE_fzzEcpI0Y-GSDmAqO11mleVHxDOApuA'
 
 Telegram::Bot::Client.run(token) do |bot|
   pr_hash = {}
-  github_acc = ''
+  github_acc = 'not defined'
+
+  user_hash = {}
+
   begin
     bot.listen do |message|
       case message.text
@@ -43,13 +46,58 @@ Telegram::Bot::Client.run(token) do |bot|
           text: "Your GitHub acc is set to @#{github_acc}"
         )
       when '/update'
-        github = GitHubConnector.new
-        github_repos = github.repos(github_acc)
-        puts github_repos
+        github_repos = $github.repos(github_acc) unless github_acc == 'not defined'
+        github_repos.each do |repo|
+          pr_hash[repo] = 0
+          pull_requests = $github.pull_requests(github_acc, repo)
+          pull_requests.each do
+            break if pull_requests.empty?
+
+            i = 1
+            loop do
+              break unless $github.pr_exists?(github_acc, repo, i)
+
+              pr_hash[repo] += $github.comments_num(github_acc, repo, i)
+              i += 1
+            end
+          end
+        end
         bot.api.send_message(
           chat_id: message.chat.id,
-          text: 'Updated'
+          text: "Updated #{pr_hash.select { |key, value| value > 0}}"
         )
+      # when '/check'
+      #   updated = []
+      #   github_repos = []
+      #   github_repos = $github.repos(github_acc) unless github_acc == 'not defined'
+      #   if github_repos =
+      #   github_repos.each do |repo|
+      #     comments_number = 0
+      #     pull_requests = $github.pull_requests(github_acc, repo)
+      #     pull_requests.each do
+      #       break if pull_requests.empty?
+
+      #       i = 1
+      #       loop do
+      #         break unless $github.pr_exists?(github_acc, repo, i)
+
+      #         comments_number += $github.comments_num(github_acc, repo, i)
+      #         i += 1
+      #       end
+      #     end
+      #     updated.push(repo) if comments_number > pr_hash[repo]
+      #   end
+      #   if updated.empty?
+      #     bot.api.send_message(
+      #       chat_id: message.chat.id,
+      #       text: "No updates"
+      #     )
+      #   else
+      #     bot.api.send_message(
+      #       chat_id: message.chat.id,
+      #       text: "There are updates in next repos #{updated}}"
+      #     )
+      #   end
       end
     end
   rescue Telegram::Bot::Exceptions::ResponseError => e

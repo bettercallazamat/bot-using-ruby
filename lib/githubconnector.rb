@@ -23,9 +23,20 @@ class GitHubConnector
     obj = self.class.get("/repos/#{username}/#{repo}/issues/#{num}/comments")
     obj.length
   end
+
+  def pr_exists?(username, repo, num)
+    obj = self.class.get("/repos/#{username}/#{repo}/issues/#{num}/comments")
+    if obj[0].nil?
+      exist = false
+    else
+      exist = true
+    end
+    exist
+  end
 end
 
-github = GitHubConnector.new
+$github = GitHubConnector.new
 # p github.repos('bettercallazamat')
 # p github.pull_requests('bettercallazamat', 'bot-using-ruby')
 # p github.comments_num('bettercallazamat', 'bot-using-ruby', 1)
+# p github.pr_exists?('bettercallazamat', 'bot-using-ruby', 3)
