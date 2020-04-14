@@ -27,12 +27,7 @@ Telegram::Bot::Client.run(ENV['TELEGRAM_BOT_TOKEN']) do |bot|
       when '/help'
         bot.api.send_message(
           chat_id: message.chat.id,
-          text: "start - Starting a bot\n
-                /stop - Stopping a bot\n
-                /auth - Saves your GitHub username\n
-                /username - Give you username that you have provided to bot\n
-                /update - Saves your current state of your repos\n
-                /check - Checks if there are new feedbacks on your repos"
+          text: "/start - Starting a bot\n/stop - Stopping a bot\n/auth - Saves your GitHub username\n/username - Give you username that you have provided to bot\n/update - Saves your current state of your repos\n/check - Checks if there are new feedbacks on your repos"
         )
       when '/auth'
         bot.api.send_message(
@@ -48,10 +43,17 @@ Telegram::Bot::Client.run(ENV['TELEGRAM_BOT_TOKEN']) do |bot|
           break
         end
       when '/username'
-        bot.api.send_message(
-          chat_id: message.chat.id,
-          text: "Your GitHub acc is set to @#{users_hash[message.from.id][0]}"
-        )
+        if users_hash[message.from.id].nil?
+          bot.api.send_message(
+            chat_id: message.chat.id,
+            text: "You haven't specified your github acc. Type /auth and provide me your github account."
+          )
+        else
+          bot.api.send_message(
+            chat_id: message.chat.id,
+            text: "Your GitHub acc is set to @#{users_hash[message.from.id][0]}"
+          )
+        end
       when '/update'
         if users_hash[message.from.id].nil?
           bot.api.send_message(
