@@ -1,7 +1,7 @@
 # spec :githubconnector_spec.rb
 # rubocop:disable Layout/LineLength
 
-require './lib/githubconnector.rb'
+require_relative './lib/githubconnector.rb'
 
 RSpec.describe(GitHubConnector) do
   let(:github) { GitHubConnector.new }
