@@ -1,6 +1,8 @@
 # telegram-bot-using-ruby
 > This bot will notify you about new comments (feedbacks) on pull requests in your repository
 
+[Link to telegram bot](https://t.me/microverse_pr_bot)
+
 ## Build with
 - Ruby
 - HTTParty
