@@ -27,20 +27,12 @@ In order to use this Telegram Bot:
 - Bot able to git pull requests link that was created by coding partner
 
 ## Commands available
-/start - Starting a bot
-
-/stop - Stopping a bot
-
-/auth - Saves your GitHub username
-
-/username - Give you username that you have provided to bot
-
-/update - Saves your current state of your repos
-
-/check - Checks if there are new feedbacks on your repos
-
-
-![image](https://i.imgur.com/l8QRqvh.png)
+1. /start - Starting a bot
+2. /stop - Stopping a bot
+3. /auth - Saves your GitHub username
+4. /username - Give you username that you have provided to bot
+5. /update - Saves your current state of your repos
+6. /check - Checks if there are new feedbacks on your repos
 
 ## Authors
 
