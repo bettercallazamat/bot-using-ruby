@@ -1,4 +1,6 @@
 # spec :githubconnector_spec.rb
+# rubocop:disable Layout/LineLength
+
 require './lib/githubconnector.rb'
 
 RSpec.describe(GitHubConnector) do
@@ -6,7 +8,7 @@ RSpec.describe(GitHubConnector) do
   describe '.repos' do
     context 'when bot runs this method' do
       it 'returns array of repositories in GitHub for specific user' do
-        expect(github.repos('bettercallazamat')).to eq ["apple-website-old-version", "bot-using-ruby", "design-teardown-project", "enumerable-methods-ruby", "google-homepage", "google-searchpage", "microverse-collaborative-project", "microverse-stanley-azamat", "newsweek-using-bootstrap", "NYT-article-page", "online-shop-website", "tic-tac-toe-game-ruby"]
+        expect(github.repos('bettercallazamat')).to eq %w[apple-website-old-version bot-using-ruby design-teardown-project enumerable-methods-ruby google-homepage google-searchpage microverse-collaborative-project microverse-stanley-azamat newsweek-using-bootstrap NYT-article-page online-shop-website tic-tac-toe-game-ruby]
       end
     end
   end
@@ -14,7 +16,7 @@ RSpec.describe(GitHubConnector) do
   describe '.pull_requests' do
     context 'when bot runs this method' do
       it 'returns array of pull request for specific repository' do
-        expect($github.pull_requests('bettercallazamat', 'bot-using-ruby')).to eq ["PR to test telegram bot"]
+        expect(github.pull_requests('bettercallazamat', 'bot-using-ruby')).to eq ['PR to test telegram bot']
       end
     end
   end
@@ -39,3 +41,5 @@ RSpec.describe(GitHubConnector) do
     end
   end
 end
+
+# rubocop:enable Layout/LineLength

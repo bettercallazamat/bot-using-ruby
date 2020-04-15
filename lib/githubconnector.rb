@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# rubocop:disable Style/Documentation
 # rubocop:disable Style/GlobalVars
 
 require 'rubygems'
@@ -41,5 +38,4 @@ end
 
 $github = GitHubConnector.new
 
-# rubocop:enable Style/Documentation
 # rubocop:enable Style/GlobalVars
