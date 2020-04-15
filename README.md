@@ -1,4 +1,4 @@
-# tic-tac-toe-game-ruby
+# telegram-bot-using-ruby
 > This bot will notify you about new comments (feedbacks) on pull requests in your repository
 
 ## Build with
