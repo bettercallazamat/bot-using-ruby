@@ -28,11 +28,17 @@ In order to use this Telegram Bot:
 
 ## Commands available
 /start - Starting a bot
+
 /stop - Stopping a bot
+
 /auth - Saves your GitHub username
+
 /username - Give you username that you have provided to bot
+
 /update - Saves your current state of your repos
+
 /check - Checks if there are new feedbacks on your repos
+
 
 ![image](https://i.imgur.com/l8QRqvh.png)
 
