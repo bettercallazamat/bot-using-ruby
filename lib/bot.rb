@@ -1,7 +1,13 @@
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/PerceivedComplexity
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Layout/LineLength
+# rubocop:disable Style/ConditionalAssignment
+
 require 'rubygems'
 require 'telegram/bot'
-require_relative './githubconnector.rb'
-require_relative './user.rb'
+require_relative 'githubconnector.rb'
+require_relative 'user.rb'
 
 class Bot
   attr_reader :users
@@ -62,7 +68,7 @@ class Bot
       content = "Welcome, #{name}. Type /auth and provide me your github account."
       text_reply(bot, message, content)
     when '/stop'
-      content = "Bye, bye"
+      content = 'Bye, bye'
       text_reply(bot, message, content)
     when '/help'
       content = "/start - Starting a bot\n/stop - Stopping a bot\n/auth - Saves your GitHub username\n/username - Give you username that you have provided to bot\n/update - Saves your current state of your repos\n/check - Checks if there are new feedbacks on your repos"
@@ -102,3 +108,9 @@ class Bot
     end
   end
 end
+
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/PerceivedComplexity
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Layout/LineLength
+# rubocop:enable Style/ConditionalAssignment
