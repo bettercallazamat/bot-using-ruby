@@ -2,6 +2,7 @@
 > This bot will notify you about new comments (feedbacks) on pull requests in your repository
 
 [Link to telegram bot](https://t.me/microverse_pr_bot)
+[Video of project presentation](https://www.loom.com/share/36462277a85a48caa879950cb8ff7521)
 
 ## Build with
 - Ruby
