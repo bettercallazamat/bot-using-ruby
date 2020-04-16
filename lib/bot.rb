@@ -77,7 +77,6 @@ class Bot
         break
       end
       update(message)
-      end
     when '/username'
       if @users[message.from.id].nil?
         content = "You haven't specified your github acc. Type /auth and provide me your github account."
