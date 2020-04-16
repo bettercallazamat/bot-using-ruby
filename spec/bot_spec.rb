@@ -11,4 +11,13 @@ RSpec.describe(Bot) do
       end
     end
   end
+
+  describe '.text_reply' do
+    context 'when bot runs this method' do
+      it 'sends Hash object to telegram server' do
+        result = bot.text_reply
+        expect(result.class).to eq Hash
+      end
+    end
+  end
 end
