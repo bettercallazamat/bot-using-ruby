@@ -7,7 +7,7 @@ class GitHubConnector
 
   def initialize
     @options = {
-      basic_auth: { 
+      basic_auth: {
         username: ENV['GITHUB_USERNAME'],
         password: ENV['GITHUB_PASSWORD']
       }

@@ -76,7 +76,7 @@ class Bot
         break
       end
     when '/username'
-      content = "Your GitHub acc is set to @#{@users[message.from.id].github_acc}"
+      content = "Your GitHub acc is set to #{@users[message.from.id].github_acc}"
       text_reply(bot, message, content)
     when '/update'
       if @users[message.from.id].nil?
