@@ -1,5 +1,4 @@
 # spec :user_spec.rb
-# rubocop:disable Layout/LineLength
 
 require './lib/user.rb'
 
@@ -13,5 +12,3 @@ RSpec.describe(User) do
     end
   end
 end
-
-# rubocop:enable Layout/LineLength

@@ -1,10 +1,9 @@
 # spec :bot_spec.rb
-# rubocop:disable Layout/LineLength
 
 require './lib/bot.rb'
 
 RSpec.describe(Bot) do
-  let(:bot) { Bot.new}
+  let(:bot) { Bot.new }
   describe '.initialize' do
     context 'when bot runs this method' do
       it 'creates instance of Bot class' do
@@ -12,6 +11,12 @@ RSpec.describe(Bot) do
       end
     end
   end
-end
 
-# rubocop:enable Layout/LineLength
+  describe '.text_reply' do
+    context 'when bot runs this method' do
+      it 'sends message to telegram user' do
+        expect(bot.text_reply(bot, message, content)).to eq 123
+      end
+    end
+  end
+end
