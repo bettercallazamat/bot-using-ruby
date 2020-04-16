@@ -11,12 +11,4 @@ RSpec.describe(Bot) do
       end
     end
   end
-
-  describe '.text_reply' do
-    context 'when bot runs this method' do
-      it 'sends message to telegram user' do
-        expect(bot.text_reply(bot, message, content)).to eq 123
-      end
-    end
-  end
 end

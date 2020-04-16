@@ -24,7 +24,7 @@ RSpec.describe(GitHubConnector) do
   describe '.comments_num' do
     context 'when bot runs this method' do
       it 'return number of comments inside specific pull request' do
-        expect(github.comments_num('bettercallazamat', 'bot-using-ruby', 1)).to eq 8
+        expect(github.comments_num('bettercallazamat', 'bot-using-ruby', 1)).to eq 3
       end
     end
   end

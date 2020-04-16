@@ -23,8 +23,7 @@ In order to use this Telegram Bot:
 5. Run /check command to check if there are new comments/feedbacks in your pull requests 
 
 ## Future plans
-- Make a bot using OAuth or Basic auth for GitHub API to get increase of limits number of API request that bot can send in 1h (60 requests/hour)
-- Make /update and /check commands running without user after specific time interval
+- Make /check commands running without user after specific time interval
 - Make bot check updates based on time of comments creating rather than checking numbers of comments(feedbacks)
 - Bot able to git pull requests link that was created by coding partner
 
