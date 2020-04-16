@@ -71,7 +71,7 @@ class Bot
       content = 'Bye, bye'
       text_reply(bot, message, content)
     when '/help'
-      content = "/start - Starting a bot\n/stop - Stopping a bot\n/auth - Saves your GitHub username\n/username - Give you username that you have provided to bot\n/update - Saves your current state of your repos\n/check - Checks if there are new feedbacks on your repos"
+      content = "/start - Starting a bot\n/stop - Stopping a bot\n/auth - Saves your GitHub username\n/username - Give you username that you have provided to bot\n/check - Checks if there are new feedbacks on your repos"
       text_reply(bot, message, content)
     when '/auth'
       content = 'Please provide your username in github'
