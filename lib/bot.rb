@@ -4,6 +4,7 @@ require_relative './githubconnector.rb'
 require_relative './user.rb'
 
 class Bot
+  attr_reader :users
   def initialize
     @users = {}
     @github = GitHubConnector.new
@@ -75,19 +76,13 @@ class Bot
         text_reply(bot, message, content)
         break
       end
+      update(message)
+      end
     when '/username'
       if @users[message.from.id].nil?
         content = "You haven't specified your github acc. Type /auth and provide me your github account."
       else
         content = "Your GitHub acc is set to #{@users[message.from.id].github_acc}"
-      end
-      text_reply(bot, message, content)
-    when '/update'
-      if @users[message.from.id].nil?
-        content = "You haven't specified your github acc. Type /auth and provide me your github account."
-      else
-        update(message)
-        content = "Updated.#{@users[message.from.id].repos.select { |_key, value| value > 0 }}"
       end
       text_reply(bot, message, content)
     when '/check'
