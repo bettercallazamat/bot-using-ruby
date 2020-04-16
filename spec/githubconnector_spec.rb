@@ -1,7 +1,7 @@
 # spec :githubconnector_spec.rb
 # rubocop:disable Layout/LineLength
 
-require_relative './lib/githubconnector.rb'
+require './lib/githubconnector.rb'
 
 RSpec.describe(GitHubConnector) do
   let(:github) { GitHubConnector.new }
@@ -16,7 +16,7 @@ RSpec.describe(GitHubConnector) do
   describe '.pull_requests' do
     context 'when bot runs this method' do
       it 'returns array of pull request for specific repository' do
-        expect(github.pull_requests('bettercallazamat', 'bot-using-ruby')).to eq ['PR to test telegram bot']
+        expect(github.pull_requests('bettercallazamat', 'bot-using-ruby')).to eq ['Telegram bot [Basic functionality]', 'PR to test telegram bot']
       end
     end
   end

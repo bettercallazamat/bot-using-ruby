@@ -33,7 +33,6 @@ In order to use this Telegram Bot:
 2. /stop - Stopping a bot
 3. /auth - Saves your GitHub username
 4. /username - Give you username that you have provided to bot
-5. /update - Saves your current state of your repos
 6. /check - Checks if there are new feedbacks on your repos
 
 ## Authors
