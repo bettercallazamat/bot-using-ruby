@@ -20,8 +20,7 @@ In order to use this Telegram Bot:
 1. Open telegram find @microverse_pr_bot
 2. Start a bot, it will ask you to use /auth command in which you need to provide your github username
 3. Check if bot has saved your github username you can run /username command
-4. Run /update command to save current state of your repositories
-5. Run /check command to check if there are new comments/feedbacks in your pull requests 
+4. Run /check command to check if there are new comments/feedbacks in your pull requests 
 
 ## Future plans
 - Make /check commands running without user after specific time interval
