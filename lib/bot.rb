@@ -76,7 +76,11 @@ class Bot
         break
       end
     when '/username'
-      content = "Your GitHub acc is set to #{@users[message.from.id].github_acc}"
+      if @users[message.from.id].nil?
+        content = "You haven't specified your github acc. Type /auth and provide me your github account."
+      else
+        content = "Your GitHub acc is set to #{@users[message.from.id].github_acc}"
+      end
       text_reply(bot, message, content)
     when '/update'
       if @users[message.from.id].nil?
@@ -96,11 +100,11 @@ class Bot
         else
           updated_string = ''
           updated.each { |value| updated_string += value + ' ' }
-          content = "#{"There are updates in next repos: #{updated_string}"}"
+          content = "There are updates in next repos: #{updated_string}"
           update(message)
         end
-        text_reply(bot, message, content)
       end
+      text_reply(bot, message, content)
     end
   end
 end
