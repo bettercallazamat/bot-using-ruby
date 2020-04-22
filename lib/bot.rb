@@ -120,7 +120,7 @@ class Bot
       text_reply(bot, message.chat.id, content)
       bot.listen do |username_input|
         @users[message.from.id] = User.new(username_input, message.from.id, message.chat.id)
-        content = "Your GitHub acc is set to #{@users[message.from.id].github_acc}"
+        content = "Your GitHub acc is set to #{@users[message.from.id].github_acc} \n\nChecks will be done automatically every 10 minutes, but if you want to check for updates manually use /check command. \n\nIf you want to track pull request from repository of your coding parter use /add command and provide link to pull request."
         text_reply(bot, message.chat.id, content)
         break
       end
