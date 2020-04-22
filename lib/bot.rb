@@ -37,11 +37,10 @@ class Bot
     github_repos = @github.repos(@users[telegram_id].github_acc)
     github_repos.each do |repo|
       @users[telegram_id].repos[repo] = 0
-      i = 1
-      loop do
-        break unless @github.pr_exists?(@users[telegram_id].github_acc, repo, i)
-
-        @users[telegram_id].repos[repo] += @github.comments_num(@users[telegram_id].github_acc, repo, i)
+      pull_requests = @github.pull_requests(@users[telegram_id].github_acc, repo)
+      i = 0
+      while i < pull_requests.length
+        @users[telegram_id].repos[repo] += @github.comments_num(@users[telegram_id].github_acc, repo, pull_requests[i][1])
         i += 1
       end
     end
@@ -52,11 +51,10 @@ class Bot
     github_repos = @github.repos(@users[telegram_id].github_acc)
     github_repos.each do |repo|
       comments_number = 0
-      i = 1
-      loop do
-        break unless @github.pr_exists?(@users[telegram_id].github_acc, repo, i)
-
-        comments_number += @github.comments_num(@users[telegram_id].github_acc, repo, i)
+      pull_requests = @github.pull_requests(@users[telegram_id].github_acc, repo)
+      i = 0
+      while i < pull_requests.length do
+        comments_number += @github.comments_num(@users[telegram_id].github_acc, repo, pull_requests[i][1])
         i += 1
       end
       updated.push(repo) if comments_number > @users[telegram_id].repos[repo]
@@ -107,7 +105,7 @@ class Bot
       if @users[message.from.id].nil?
         content = "You haven't specified your github acc. Type /auth and provide me your github account."
       else
-        content = "Your GitHub acc is set to #{@users[message.from.id].github_acc}"
+        content = "Your GitHub acc is set to #{@users[message.from.id].github_acc} #{@users[message.from.id].repos}"
       end
       text_reply(bot, message.chat.id, content)
     when '/check'

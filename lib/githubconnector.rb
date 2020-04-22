@@ -24,7 +24,7 @@ class GitHubConnector
   def pull_requests(username, repo)
     obj = self.class.get("/repos/#{username}/#{repo}/pulls", @options)
     pull_requests_array = []
-    obj.each { |value| pull_requests_array.push(value['title']) }
+    obj.each { |value| pull_requests_array.push([value['title'], value['number'], value['url']]) }
     pull_requests_array
   end
 
@@ -42,3 +42,7 @@ class GitHubConnector
     end
   end
 end
+
+github_connector = GitHubConnector.new
+p github_connector.pull_requests('bettercallazamat', 'bot-using-ruby')
+p github_connector.comments_num('bettercallazamat', 'bot-using-ruby', 1)
