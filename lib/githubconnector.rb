@@ -24,7 +24,7 @@ class GitHubConnector
   def pull_requests(username, repo)
     obj = self.class.get("/repos/#{username}/#{repo}/pulls", @options)
     pull_requests_array = []
-    obj.each { |value| pull_requests_array.push([value['title'], value['number'], value['url']]) }
+    obj.each { |value| pull_requests_array.push([value['title'], value['number'], value['html_url']]) }
     pull_requests_array
   end
 

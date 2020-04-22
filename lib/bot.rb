@@ -37,12 +37,9 @@ class Bot
   def update(telegram_id)
     github_repos = @github.repos(@users[telegram_id].github_acc)
     github_repos.each do |repo|
-      @users[telegram_id].repos[repo] = 0
       pull_requests = @github.pull_requests(@users[telegram_id].github_acc, repo)
-      i = 0
-      while i < pull_requests.length
-        @users[telegram_id].repos[repo] += @github.comments_num(@users[telegram_id].github_acc, repo, pull_requests[i][1])
-        i += 1
+      pull_requests.each do |pr|
+        @users[telegram_id].pull_requests[pr[2]] = @github.comments_num(@users[telegram_id].github_acc, repo, pr[1])
       end
     end
   end
@@ -51,14 +48,12 @@ class Bot
     updated = []
     github_repos = @github.repos(@users[telegram_id].github_acc)
     github_repos.each do |repo|
-      comments_number = 0
       pull_requests = @github.pull_requests(@users[telegram_id].github_acc, repo)
-      i = 0
-      while i < pull_requests.length
-        comments_number += @github.comments_num(@users[telegram_id].github_acc, repo, pull_requests[i][1])
-        i += 1
+      pull_requests.each do |pr|
+        comments_number = 0
+        comments_number += @github.comments_num(@users[telegram_id].github_acc, repo, pr[1])
+        updated.push(pr[2]) if comments_number > @users[telegram_id].pull_requests[pr[2]]
       end
-      updated.push(repo) if comments_number > @users[telegram_id].repos[repo]
     end
     updated
   end
@@ -71,8 +66,8 @@ class Bot
         next if updated.empty?
 
         updated_string = ''
-        updated.each { |repo| updated_string += repo + ' ' }
-        content = "There are updates in next repos: #{updated_string}"
+        updated.each { |repo| updated_string += repo + "\n" }
+        content = "There are updates in next PR(s):\n #{updated_string}"
         text_reply(bot, value.chat_id, content)
         update(value.telegram_id)
       end
@@ -86,12 +81,15 @@ class Bot
       name = message.from.first_name
       content = "Welcome, #{name}. Type /auth and provide me your github account."
       text_reply(bot, message.chat.id, content)
+
     when '/stop'
       content = 'Bye, bye'
       text_reply(bot, message.chat.id, content)
+
     when '/help'
       content = "/start - Starting a bot\n/stop - Stopping a bot\n/auth - Saves your GitHub username\n/username - Give you username that you have provided to bot\n/check - Checks if there are new feedbacks on your repos"
       text_reply(bot, message.chat.id, content)
+
     when '/auth'
       content = 'Please provide your username in github'
       text_reply(bot, message.chat.id, content)
@@ -102,13 +100,15 @@ class Bot
         break
       end
       update(message.from.id)
+
     when '/username'
       if @users[message.from.id].nil?
         content = "You haven't specified your github acc. Type /auth and provide me your github account."
       else
-        content = "Your GitHub acc is set to #{@users[message.from.id].github_acc} #{@users[message.from.id].repos}"
+        content = "Your GitHub acc is set to #{@users[message.from.id].github_acc}"
       end
       text_reply(bot, message.chat.id, content)
+
     when '/check'
       if @users[message.from.id].nil?
         content = "You haven't specified your github acc. Type /auth and provide me your github account."
@@ -118,8 +118,8 @@ class Bot
           content = 'No updates'
         else
           updated_string = ''
-          updated.each { |value| updated_string += value + ' ' }
-          content = "There are updates in next repos: #{updated_string}"
+          updated.each { |value| updated_string += value + "\n" }
+          content = "There are updates in next PR(s):\n #{updated_string}"
           update(message.from.id)
         end
       end
