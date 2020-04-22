@@ -2,7 +2,6 @@
 # rubocop:disable Metrics/PerceivedComplexity
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Layout/LineLength
-# rubocop:disable Style/ConditionalAssignment
 # rubocop:disable Metrics/AbcSize
 
 require 'rubygems'
@@ -168,5 +167,4 @@ end
 # rubocop:enable Metrics/PerceivedComplexity
 # rubocop:enable Metrics/MethodLength
 # rubocop:enable Layout/LineLength
-# rubocop:enable Style/ConditionalAssignment
 # rubocop:enable Metrics/AbcSize
