@@ -42,7 +42,3 @@ class GitHubConnector
     end
   end
 end
-
-github_connector = GitHubConnector.new
-p github_connector.pull_requests('bettercallazamat', 'bot-using-ruby')
-p github_connector.comments_num('bettercallazamat', 'bot-using-ruby', 1)

@@ -3,6 +3,7 @@
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Layout/LineLength
 # rubocop:disable Style/ConditionalAssignment
+# rubocop:disable Metrics/AbcSize
 
 require 'rubygems'
 require 'telegram/bot'
@@ -53,7 +54,7 @@ class Bot
       comments_number = 0
       pull_requests = @github.pull_requests(@users[telegram_id].github_acc, repo)
       i = 0
-      while i < pull_requests.length do
+      while i < pull_requests.length
         comments_number += @github.comments_num(@users[telegram_id].github_acc, repo, pull_requests[i][1])
         i += 1
       end
@@ -75,7 +76,7 @@ class Bot
         text_reply(bot, value.chat_id, content)
         update(value.telegram_id)
       end
-      sleep(60)
+      sleep(600)
     end
   end
 
@@ -132,3 +133,4 @@ end
 # rubocop:enable Metrics/MethodLength
 # rubocop:enable Layout/LineLength
 # rubocop:enable Style/ConditionalAssignment
+# rubocop:enable Metrics/AbcSize
