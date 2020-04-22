@@ -63,17 +63,42 @@ class Bot
     loop do
       users_clone = @users.clone
       users_clone.each do |_key, value|
-        updated = check(value.telegram_id)
+        updated = check(value.telegram_id) + check_pull_requests_diff(value.telegram_id)
         next if updated.empty?
 
         updated_string = ''
         updated.each { |repo| updated_string += repo + "\n" }
-        content = "There are updates in next PR(s):\n #{updated_string}"
+        content = "There are updates in next PR(s):\n#{updated_string}"
         text_reply(bot, value.chat_id, content)
         update(value.telegram_id)
       end
       sleep(600)
     end
+  end
+
+  def add_pull_requests_diff(telegram_id, input)
+    input_arr = input.split('/')
+    i = 1
+    i = 3 if input_arr[0] == 'https:' || input_arr[0] == 'http:'
+    username = input_arr[i]
+    repo = input_arr[i + 1]
+    number = input_arr[i + 3].to_i
+    comments_number = @github.comments_num(username, repo, number)
+    @users[telegram_id].pull_requests_diff[input] = [input, username, repo, number, comments_number]
+  end
+
+  def check_pull_requests_diff(telegram_id)
+    updated = []
+    @users[telegram_id].pull_requests_diff.each do |_key, value|
+      comments_number = @github.comments_num(value[1], value[2], value[3])
+      update = false
+      update = true if comments_number > value[4]
+      if update
+        updated.push(value[0])
+        value[4] = comments_number
+      end
+    end
+    updated
   end
 
   def command(bot, message)
@@ -106,7 +131,7 @@ class Bot
       if @users[message.from.id].nil?
         content = "You haven't specified your github acc. Type /auth and provide me your github account."
       else
-        content = "Your GitHub acc is set to #{@users[message.from.id].github_acc}"
+        content = "Your GitHub acc is set to #{@users[message.from.id].github_acc} #{@users[message.from.id].pull_requests_diff}"
       end
       text_reply(bot, message.chat.id, content)
 
@@ -114,17 +139,27 @@ class Bot
       if @users[message.from.id].nil?
         content = "You haven't specified your github acc. Type /auth and provide me your github account."
       else
-        updated = check(message.from.id)
+        updated = check(message.from.id) + check_pull_requests_diff(message.from.id)
         if updated.empty?
           content = 'No updates'
         else
           updated_string = ''
           updated.each { |value| updated_string += value + "\n" }
-          content = "There are updates in next PR(s):\n #{updated_string}"
+          content = "There are updates in next PR(s):\n#{updated_string}"
           update(message.from.id)
         end
       end
       text_reply(bot, message.chat.id, content)
+
+    when '/add'
+      content = 'Please provide link to PR that you want to track'
+      text_reply(bot, message.chat.id, content)
+      bot.listen do |input|
+        add_pull_requests_diff(message.from.id, input.text)
+        content = 'PR is added to tracking list'
+        text_reply(bot, message.chat.id, content)
+        break
+      end
     end
   end
 end

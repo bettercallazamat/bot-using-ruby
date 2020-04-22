@@ -42,3 +42,6 @@ class GitHubConnector
     end
   end
 end
+
+# github = GitHubConnector.new
+# p github.comments_num('bettercallazamat', 'bot-using-ruby', 1)
