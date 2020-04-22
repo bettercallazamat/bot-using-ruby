@@ -35,6 +35,7 @@ class Bot
   end
 
   def update(telegram_id)
+    @users[telegram_id].pull_requests = {}
     github_repos = @github.repos(@users[telegram_id].github_acc)
     github_repos.each do |repo|
       pull_requests = @github.pull_requests(@users[telegram_id].github_acc, repo)
