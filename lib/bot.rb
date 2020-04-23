@@ -112,7 +112,7 @@ class Bot
       text_reply(bot, message.chat.id, content)
 
     when '/help'
-      content = "/start - Starting a bot\n/stop - Stopping a bot\n/auth - Saves your GitHub username\n/username - Give you username that you have provided to bot\n/check - Checks if there are new feedbacks on your repos"
+      content = "/start - Starting a bot\n/stop - Stopping a bot\n/auth - Saves your GitHub username\n/username - Give you username that you have provided to bot\n/check - Checks if there are new feedbacks on your repos\n/add - to add PR from repository of your coding parter to track"
       text_reply(bot, message.chat.id, content)
 
     when '/auth'
@@ -130,7 +130,7 @@ class Bot
       if @users[message.from.id].nil?
         content = "You haven't specified your github acc. Type /auth and provide me your github account."
       else
-        content = "Your GitHub acc is set to #{@users[message.from.id].github_acc} #{@users[message.from.id].pull_requests_diff}"
+        content = "Your GitHub acc is set to #{@users[message.from.id].github_acc}"
       end
       text_reply(bot, message.chat.id, content)
 
