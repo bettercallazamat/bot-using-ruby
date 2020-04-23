@@ -3,6 +3,7 @@
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Layout/LineLength
 # rubocop:disable Metrics/AbcSize
+# rubocop:disable Style/ConditionalAssignment
 
 require 'rubygems'
 require 'telegram/bot'
@@ -168,3 +169,4 @@ end
 # rubocop:enable Metrics/MethodLength
 # rubocop:enable Layout/LineLength
 # rubocop:enable Metrics/AbcSize
+# rubocop:enable Style/ConditionalAssignment
